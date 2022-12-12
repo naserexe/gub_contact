@@ -17,6 +17,10 @@ const PORT = process.env.PORT || 5000
 
 app.use('/api/contact', contactRoutes);
 
+app.get('/health', (req, res) => res.send('Server up and running'));
+
+app.get('/', (req, res) => res.send('Contact server is up and running'));
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {
