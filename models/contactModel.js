@@ -18,7 +18,10 @@ const ContactSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  secondaryPhone: String,
+  secondaryPhone: {
+    type: String,
+    default: 'N/A'
+  },
   email: {
     type: String,
     required: true
