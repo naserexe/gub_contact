@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
 const ContactSchema = new mongoose.Schema({
-  photo: String,
   name: {
     type: String,
     required: true
+  },
+  photo: {
+    type: String,
+    required: true,
   },
   designation: {
     type: String,
@@ -16,6 +19,7 @@ const ContactSchema = new mongoose.Schema({
   },
   primaryPhone: {
     type: String,
+    unique: true,
     required: true
   },
   secondaryPhone: {
@@ -24,11 +28,12 @@ const ContactSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    unique: true,
     required: true
   },
   pbx: {
     type: String,
-    required: true
+    default: 'N/A'
   },
   room: {
     type: String,
@@ -36,8 +41,16 @@ const ContactSchema = new mongoose.Schema({
   },
   details: {
     type: String,
-    required: true
+    default: 'N/A'
   },
+  password: {
+    type: String,
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
 }, {
   timestamps: true
 });

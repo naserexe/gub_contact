@@ -5,12 +5,12 @@ const { createDepartment, getAllDepartment} = require('../controllers/department
 const validate = require('../middlewares/reqValidation');
 const imageUploader = require('../utils/imageUpload')
 
-// const { protect, authorize } = require('../middleware/auth');
+const protect = require('../middlewares/auth');
 
 router.route('/')
-  .post([
+  .post(protect, validate([
     body('name').isString().withMessage('Department name is required'),
-  ], createDepartment)
+  ]), createDepartment)
   .get(getAllDepartment);
 
 module.exports = router;
