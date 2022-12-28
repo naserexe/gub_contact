@@ -91,3 +91,15 @@ exports.updateContact = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, message: 'Contact updated successfully', updatedContact });
 });
+
+
+// get user
+exports.deleteContact = asyncHandler(async (req, res) => {
+
+  if(!req.user.isAdmin){
+    return res.status(403).json({ success: false, message: 'You are not authorized to perform this operation'});
+  }
+
+  const deletedContact = await contactModel.findByIdAndDelete(req.params.id).select('-password');
+  res.status(200).json({ success: true, message: 'Contact deleted successfully', deletedContact });
+});

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { body } = require('express-validator');
-const { createContact, getAllContact, updateContact } = require('../controllers/contactController');
+const { createContact, getAllContact, updateContact, deleteContact } = require('../controllers/contactController');
 const validate = require('../middlewares/reqValidation');
 const imageUploader = require('../utils/imageUpload')
 
@@ -19,6 +19,8 @@ router.route('/')
   .get(getAllContact);
 
 router.route('/update/:id')
-.post(protect, imageUploader.single('photo'), updateContact)
+.post(protect, imageUploader.single('photo'), updateContact);
+
+router.route('/:id').delete(protect, deleteContact)
 
 module.exports = router;
