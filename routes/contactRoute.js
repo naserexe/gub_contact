@@ -15,6 +15,7 @@ router.route('/')
     body('department').isString().withMessage('Department is required'),
     body('primaryPhone').isString().withMessage('Primary phone is required'),
     body('room').isString().withMessage('Room number is required'),
+    body('password').isString().withMessage('User login password is required'),
   ]), createContact)
   .get(getAllContact);
 
