@@ -20,7 +20,7 @@ const ContactSchema = new mongoose.Schema({
   primaryPhone: {
     type: String,
     unique: true,
-    required: true
+    // required: true
   },
   secondaryPhone: {
     type: String,
@@ -37,7 +37,7 @@ const ContactSchema = new mongoose.Schema({
   },
   room: {
     type: String,
-    required: true
+    // required: true
   },
   details: {
     type: String,
