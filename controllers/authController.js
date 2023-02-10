@@ -36,3 +36,22 @@ exports.getUser = asyncHandler(async (req, res) => {
   const user = await contactModel.findById(req.user._id).select('-password');
   res.status(200).json({ success: true, message: 'Fetched current user', user });
 });
+
+// Change password
+exports.changePassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const match = await bcrypt.compare(oldPassword, req.user.password);
+
+  if (!match) {
+    return res.status(400).json({ success: false, msg: 'Old password does not match' });
+  }
+
+  const hash = await bcrypt.hash(newPassword, 11);
+
+  await contactModel.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: { password: hash } },
+  );
+  return res.status(200).json({ success: true, msg: 'Password changed successfully' });
+});
