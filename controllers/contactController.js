@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const sharp = require('sharp');
 const asyncHandler = require('../middlewares/async');
 const contactModel = require('../models/contactModel');
+const shortCodeGenerator = require('../utils/nameShortCodeGenerator');
 
 exports.createContact = asyncHandler(async (req, res, next) => {
   if(!req.user.isAdmin){
@@ -50,6 +51,8 @@ exports.createContact = asyncHandler(async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   req.body.password = hashedPassword;
+
+  // req.body.shortName = shortName = shortCodeGenerator(req.body.name);
 
   const newContact = await contactModel.create(req.body);
 
@@ -118,6 +121,8 @@ exports.updateContact = asyncHandler(async (req, res, next) => {
   }
 
   delete req.body.password;
+
+  // req.body.shortName = shortName = shortCodeGenerator(req.body.name);
 
   const updatedContact = await contactModel.findByIdAndUpdate(req.params.id, req.body, { new: true }).select('-password -isAdmin');
 
